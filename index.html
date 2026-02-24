@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RARE BREEDS | The Enlightened Collective</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1;400&display=swap" rel="stylesheet">
+ 
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        display: ['Cinzel', 'serif'],
+                        poetic: ['Cormorant Garamond', 'serif'],
+                    },
+                    colors: {
+                        void: {
+                            900: '#0a0a0f',
+                            800: '#12121a',
+                            700: '#1a1a25',
+                            600: '#252538',
+                        },
+                        aurum: {
+                            400: '#d4af37',
+                            500: '#c5a028',
+                            300: '#e5c158',
+                            200: '#f4e5c2',
+                        },
+                        crimson: {
+                            500: '#8b1538',
+                            400: '#a0204a',
+                            600: '#6b0f2a',
+                        },
+                        ethereal: {
+                            300: '#a8b2d1',
+                            400: '#8892b0',
+                            500: '#6b7280',
+                        },
+                        nebula: {
+                            400: '#6366f1',
+                            500: '#4f46e5',
+                            600: '#4338ca',
+                        },
+                        emerald: {
+                            400: '#10b981',
+                            500: '#059669',
+                            600: '#047857',
+                        }
+                    },
+                    animation: {
+                        'shimmer': 'shimmer 3s ease-in-out infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 4s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'fade-in': 'fade-in 1s ease-out',
+                        'slide-up': 'slide-up 0.8s ease-out',
+                        'breathe': 'breathe 4s ease-in-out infinite',
+                        'crown-pulse': 'crown-pulse 2s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        shimmer: {
+                            '0%, 100%': { opacity: 0.4 },
+                            '50%': { opacity: 1 },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(212, 175, 55, 0.2)' },
+                            '50%': { boxShadow: '0 0 40px rgba(212, 175, 55, 0.5)' },
+                        },
+                        glow: {
+                            'from': { boxShadow: '0 0 5px -5px #d4af37' },
+                            'to': { boxShadow: '0 0 20px 5px #d4af37' }
+                        },
+                        'fade-in': {
+                            '0%': { opacity: 0 },
+                            '100%': { opacity: 1 },
+                        },
+                        'slide-up': {
+                            '0%': { transform: 'translateY(30px)', opacity: 0 },
+                            '100%': { transform: 'translateY(0)', opacity: 1 },
+                        },
+                        breathe: {
+                            '0%, 100%': { transform: 'scale(1)', opacity: 0.8 },
+                            '50%': { transform: 'scale(1.05)', opacity: 1 },
+                        },
+                        'crown-pulse': {
+                            '0%, 100%': { transform: 'scale(1)', filter: 'brightness(1)' },
+                            '50%': { transform: 'scale(1.1)', filter: 'brightness(1.3)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+ 
+    <style>
+        body {
+            background-color: #0a0a0f;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0f; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37; 
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e5c158; 
+        }
+ 
+        .glass-void {
+            background: rgba(18, 18, 26, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+        }
+ 
+        .glass-void-light {
+            background: rgba(26, 26, 37, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+ 
+        .text-gilded {
+            background: linear-gradient(135deg, #d4af37 0%, #f4e5c2 50%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+ 
+        .border-gilded {
+            border-image: linear-gradient(135deg, #d4af37, #8b1538) 1;
+        }
+ 
+        .btn-gilded {
+            background: linear-gradient(135deg, #d4af37 0%, #c5a028 50%, #d4af37 100%);
+            color: #0a0a0f;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+ 
+        .btn-gilded:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        }
+ 
+        .btn-gilded::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(30deg);
+            transition: all 0.6s;
+        }
+ 
+        .btn-gilded:hover::after {
+            left: 100%;
+        }
+ 
+        .btn-crimson {
+            background: linear-gradient(135deg, #8b1538 0%, #a0204a 50%, #8b1538 100%);
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+ 
+        .btn-crimson:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 21, 56, 0.4);
+        }
+ 
+        .btn-nebula {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #6366f1 100%);
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+ 
+        .btn-nebula:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+ 
+        .btn-emerald {
+            background: linear-gradient(135deg, #059669 0%, #10b981 50%, #059669 100%);
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+ 
+        .btn-emerald:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+        }
+ 
+        #constellation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+ 
+        .rare-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .rare-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+ 
+        .merch-card {
+            transition: all 0.4s ease;
+        }
+        .merch-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+ 
+        .location-pulse {
+            animation: location-pulse 2s ease-in-out infinite;
+        }
+ 
+        @keyframes location-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+            50% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
+        }
+ 
+        .poetic-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            letter-spacing: 0.02em;
+        }
+ 
+        .gradient-text {
+            background: linear-gradient(135deg, #d4af37 0%, #e5c158 50%, #f4e5c2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+ 
+        .habit-track {
+            transition: all 0.3s ease;
+        }
+        .habit-track:hover {
+            transform: translateX(5px);
+        }
+ 
+        .day-check {
+            transition: all 0.2s ease;
+        }
+        .day-check:hover {
+            transform: scale(1.2);
+        }
+        .day-check.active {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+        .day-check.relapse {
+            background: linear-gradient(135deg, #8b1538, #a0204a);
+        }
+ 
+        .crown-ceremony {
+            animation: crown-ceremony 3s ease-out forwards;
+        }
+ 
+        @keyframes crown-ceremony {
+            0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+ 
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #d4af37;
+            animation: confetti-fall 3s ease-out forwards;
+        }
+ 
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+ 
+    <canvas id="constellation"></canvas>
+    <div id="root"></div>
+ 
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+ 
+        // ============================================
+        // CONFIGURATION - UPDATE THESE WITH YOUR INFO
+        // ============================================
+        
+        const CONTACT_INFO = {
+            phone: "+234 803 456 7890",  // ← REPLACE WITH YOUR NUMBER
+            whatsapp: "+234 803 456 7890",  // ← YOUR WHATSAPP
+            email: "archon@rarebreeds.collective"  // ← YOUR EMAIL
+        };
+ 
+        const FOUNDER = {
+            name: "Drim$",
+            title: "The Twice-Returned",
+            avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+            bio: "A being who has transcended form and time after encountering death twice—leaving this world on both occasions, only to be brought back due to the love of people around him. The love that brought him back was so immense that it sprouted a new vision and purpose: to enlighten the world about the knowledge and realms he has witnessed. Drim$ walks between worlds, carrying wisdom from beyond the veil to guide Rare Breeds toward collective liberation."
+        };
+ 
+        // ============================================
+        // DATA & CONTENT
+        // ============================================
+ 
+        const CURRENCIES = [
+            { code: 'Æ', name: 'Essence', symbol: 'Æ', rate: 1 },
+            { code: 'USD', name: 'US Dollar', symbol: '$', rate: 1 },
+            { code: 'EUR', name: 'Euro', symbol: '€', rate: 0.92 },
+            { code: 'GBP', name: 'British Pound', symbol: '£', rate: 0.79 },
+            { code: 'NGN', name: 'Nigerian Naira', symbol: '₦', rate: 1500 },
+            { code: 'BTC', name: 'Bitcoin', symbol: '₿', rate: 0.000015 },
+            { code: 'ETH', name: 'Ethereum', symbol: 'Ξ', rate: 0.00028 },
+        ];
+ 
+        const IDEOLOGIES = [
+            {
+                title: "The Human Birthright",
+                text: "We came into this world to enjoy being human, not to work like robots until we die. Our existence is meant for wonder, creation, and connection—not endless toil in service of systems that drain our vitality.",
+                icon: "sun"
+            },
+            {
+                title: "The Great Refusal",
+                text: "If the system does not serve us, we shall not serve it. The system should exist for the majority, designed by the populace to create their individual heavens on earth. We are not cogs in a machine—we are the architects of reality.",
+                icon: "fist"
+            },
+            {
+                title: "We Are The World",
+                text: "The world was made for us. We are its caretakers, its consciousness, its future. The earth does not belong to corporations or governments—it belongs to every breathing soul who walks upon it.",
+                icon: "globe"
+            },
+            {
+                title: "Collective Liberation",
+                text: "No one is free until everyone is free. The chains that bind the least of us weaken us all. True prosperity comes not from extraction, but from elevation—lifting every member of our conclave toward their highest potential.",
+                icon: "users"
+            },
+            {
+                title: "The Sovereign Individual",
+                text: "You are not your job title. You are not your bank account. You are an infinite being with infinite potential. Rare Breeds exists to remind you of what you forgot you always knew.",
+                icon: "crown"
+            }
+        ];
+ 
+        const NEXT_SEMINAR = {
+            title: "The Resurrection Protocol",
+            subtitle: "Transcending Death, Embracing Life",
+            date: "March 15, 2025",
+            time: "18:00 UTC",
+            location: "The Obsidian Spire, Reykjavik",
+            format: "Physical & Virtual Hybrid",
+            spotsRemaining: 12,
+            totalSpots: 50,
+            description: "Join Drim$ and the Conclave for a transformative gathering on rebirth, purpose, and the wisdom gained from beyond the veil."
+        };
+ 
+        const TERMS = {
+            feed: "The Atrium",
+            jobs: "The Forge",
+            music: "The Resonance",
+            profile: "Your Essence",
+            likes: "Endorsements",
+            comments: "Echoes",
+            post: "Proclaim",
+            donate: "Offer Tribute",
+            payment: "Exchange Essence",
+            admin: "Archon",
+            user: "Aspirant",
+            community: "The Conclave",
+            business: "Venture",
+            weekly: "Cycle",
+            contribution: "Sacred Offering",
+            support: "Uphold the Vision",
+            stream: "Channel the Frequency",
+            merch: "Artifacts",
+            conference: "Council Gathering",
+            seminar: "Rite of Passage",
+            location: "Sanctuary",
+            cohort: "Circle",
+            manifesto: "The Codex",
+            join: "Enter the Conclave",
+            metamorphosis: "The Metamorphosis"
+        };
+ 
+        const INITIAL_MANIFESTOS = [
+            {
+                id: 1,
+                author: "Vesper_Noctis",
+                avatar: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=150&h=150&fit=crop",
+                content: "Venture Concept: 'Aether Harvest' — Converting atmospheric moisture into rare mineral-infused hydration for the elite. Seeking alchemists and atmospheric engineers.",
+                endorsements: 47,
+                echoes: [
+                    { id: 101, user: "Solomon_Vex", text: "The resonance frequencies align. I possess the distillation arrays." },
+                    { id: 102, user: "Astra_Nova", text: "Atmospheric permissions in the Nordic sector are obtainable." }
+                ],
+                timestamp: "2 cycles ago"
+            },
+            {
+                id: 2,
+                author: "Orion_Crypt",
+                avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop",
+                content: "Summoning artisans for 'Project Obsidian' — A decentralized consciousness archive stored in crystalline matrices. Reward: 5000 Essence units weekly.",
+                endorsements: 128,
+                echoes: [],
+                timestamp: "5 cycles ago"
+            }
+        ];
+ 
+        const FORGE_OPPORTUNITIES = [
+            { id: 1, title: "Neural Architect", essence: "3,500/cycle", tags: ["Synaptic", "Quantum"], status: "Open" },
+            { id: 2, title: "Reality Sculptor", essence: "4,200/cycle", tags: ["Holographic", "Spatial"], status: "Open" },
+            { id: 3, title: "Chronomancer", essence: "5,000/cycle", tags: ["Temporal", "Predictive"], status: "Filled" },
+        ];
+ 
+        const RESONANCE_DATA = {
+            title: "ECHOES OF THE VOID: Cycle 47",
+            archon: "Archon Vesper",
+            tracks: [
+                { title: "Crystalline Dreams", artisan: "The Stellar Cartographers", duration: "4:23" },
+                { title: "Nebula's Embrace", artisan: "Void Whispers", duration: "5:17" },
+                { title: "Golden Frequency", artisan: "Aurum Collective", duration: "3:45" },
+            ]
+        };
+ 
+        const ARTIFACTS = [
+            { id: 1, name: "Crown of the Initiated", price: 250, image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=400&fit=crop", category: "Adornment" },
+            { id: 2, name: "Chronicle of Rare Breeds", price: 75, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=400&fit=crop", category: "Tome" },
+            { id: 3, name: "Resonance Talisman", price: 150, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop", category: "Artifact" },
+            { id: 4, name: "Void Walker Attire", price: 300, image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=400&fit=crop", category: "Vesture" },
+        ];
+ 
+        const COUNCIL_GATHERING = {
+            nextDate: "Every Seventh Dawn",
+            time: "05:00 UTC",
+            topic: "The Great Convergence: Preparing for the Next Evolution",
+            participants: 247
+        };
+ 
+        const SANCTUARY_CIRCLES = [
+            { id: 1, name: "Circle of the Northern Star", location: "Nordic Regions", members: 234, coordinates: { lat: 64.9631, lng: -19.0208 }, focus: "Crystalline Technologies", regions: ["Iceland", "Norway", "Sweden", "Finland", "Denmark"] },
+            { id: 2, name: "Circle of the Eastern Sun", location: "Asian Pacific", members: 189, coordinates: { lat: 35.6762, lng: 139.6503 }, focus: "Consciousness Expansion", regions: ["Japan", "China", "South Korea", "Singapore", "Thailand"] },
+            { id: 3, name: "Circle of the Western Winds", location: "Americas", members: 312, coordinates: { lat: 40.7128, lng: -74.0060 }, focus: "Venture Architecture", regions: ["USA", "Canada", "Mexico", "Brazil", "Argentina"] },
+            { id: 4, name: "Circle of the Southern Cross", location: "Oceania", members: 156, coordinates: { lat: -33.8688, lng: 151.2093 }, focus: "Sustainable Futures", regions: ["Australia", "New Zealand", "Fiji", "Papua New Guinea"] },
+            { id: 5, name: "Circle of the Rising Sand", location: "Africa & Middle East", members: 198, coordinates: { lat: 6.5244, lng: 3.3792 }, focus: "Resource Alchemy", regions: ["Nigeria", "South Africa", "Kenya", "UAE", "Egypt"] },
+            { id: 6, name: "Circle of the Ancient Stone", location: "Europe", members: 276, coordinates: { lat: 48.8566, lng: 2.3522 }, focus: "Heritage Systems", regions: ["UK", "France", "Germany", "Italy", "Spain", "Netherlands"] },
+        ];
+ 
+        // ============================================
+        // COMPONENTS
+        // ============================================
+ 
+        const Navbar = ({ activeTab, setActiveTab, essence, isAuthenticated }) => (
+            <nav className="fixed top-0 w-full z-50 glass-void border-b border-aurum-400/20">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex items-center justify-between h-20">
+                        <div className="flex items-center gap-4 cursor-pointer" onClick={() => setActiveTab('codex')}>
+                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-aurum-400 via-aurum-300 to-crimson-500 flex items-center justify-center animate-pulse-glow">
+                                <i data-lucide="crown" className="text-void-900 w-7 h-7"></i>
+                            </div>
+                            <div>
+                                <span className="font-display font-bold text-2xl tracking-widest text-gilded">RARE BREEDS</span>
+                                <p className="text-xs text-ethereal-400 font-mono tracking-[0.3em]">THE ENLIGHTENED COLLECTIVE</p>
+                            </div>
+                        </div>
+                        
+                        {isAuthenticated && (
+                            <div className="hidden lg:flex items-center gap-1">
+                                {[
+                                    { id: 'atrium', label: TERMS.feed, icon: 'columns' },
+                                    { id: 'metamorphosis', label: TERMS.metamorphosis, icon: 'refresh-cw' },
+                                    { id: 'forge', label: TERMS.jobs, icon: 'hammer' },
+                                    { id: 'resonance', label: TERMS.music, icon: 'music' },
+                                    { id: 'artifacts', label: TERMS.merch, icon: 'package' },
+                                    { id: 'sanctuaries', label: 'Sanctuaries', icon: 'map-pin' },
+                                    { id: 'essence', label: TERMS.profile, icon: 'user' },
+                                ].map((tab) => (
+                                    <button
+                                        key={tab.id}
+                                        onClick={() => setActiveTab(tab.id)}
+                                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
+                                            activeTab === tab.id 
+                                            ? 'bg-aurum-400/20 text-aurum-300 border border-aurum-400/50' 
+                                            : 'text-ethereal-400 hover:text-aurum-200 hover:bg-white/5'
+                                        }`}
+                                    >
+                                        <i data-lucide={tab.icon} className="w-4 h-4"></i>
+                                        <span className="hidden xl:inline">{tab.label}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+ 
+                        <div className="flex items-center gap-4">
+                            {isAuthenticated ? (
+                                <>
+                                    <div className="text-right hidden md:block">
+                                        <div className="text-xs text-aurum-400 font-mono tracking-wider">ESSENCE RESERVE</div>
+                                        <div className="text-lg font-display font-bold text-gilded">{essence.toLocaleString()} Æ</div>
+                                    </div>
+                                    <button 
+                                        onClick={() => setActiveTab('offering')}
+                                        className="btn-gilded px-6 py-2 rounded-lg text-sm font-bold flex items-center gap-2 animate-shimmer"
+                                    >
+                                        <i data-lucide="heart-handshake" className="w-4 h-4"></i>
+                                        <span className="hidden sm:inline">{TERMS.support}</span>
+                                    </button>
+                                </>
+                            ) : (
+                                <button 
+                                    onClick={() => setActiveTab('enter')}
+                                    className="btn-gilded px-8 py-3 rounded-lg text-sm font-bold flex items-center gap-2"
+                                >
+                                    <i data-lucide="log-in" className="w-4 h-4"></i>
+                                    {TERMS.join}
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        );
+ 
+        // ============================================
+        // THE METAMORPHOSIS (HABIT SYSTEM)
+        // ============================================
+ 
+        const Metamorphosis = () => {
+            const [habits, setHabits] = useState({ cultivate: [], release: [] });
+            const [newHabit, setNewHabit] = useState({ type: 'cultivate', text: '', reason: '' });
+            const [showCeremony, setShowCeremony] = useState(false);
+            const [crownedHabit, setCrownedHabit] = useState(null);
+ 
+            useEffect(() => {
+                const saved = localStorage.getItem('rarebreeds_habits');
+                if (saved) setHabits(JSON.parse(saved));
+            }, []);
+ 
+            useEffect(() => {
+                localStorage.setItem('rarebreeds_habits', JSON.stringify(habits));
+            }, [habits]);
+ 
+            const addHabit = (e) => {
+                e.preventDefault();
+                if (!newHabit.text.trim()) return;
+                
+                const habit = {
+                    id: Date.now(),
+                    text: newHabit.text,
+                    reason: newHabit.reason,
+                    type: newHabit.type,
+                    startDate: new Date().toISOString(),
+                    progress: Array(30).fill(null),
+                    streak: 0,
+                    completed: false
+                };
+                
+                setHabits(prev => ({
+                    ...prev,
+                    [newHabit.type]: [...prev[newHabit.type], habit]
+                }));
+                
+                setNewHabit({ type: 'cultivate', text: '', reason: '' });
+            };
+ 
+            const toggleDay = (habitId, type, dayIndex) => {
+                setHabits(prev => {
+                    const updated = { ...prev };
+                    const habit = updated[type].find(h => h.id === habitId);
+                    if (!habit || habit.completed) return prev;
+                    
+                    habit.progress[dayIndex] = habit.progress[dayIndex] === true ? null : true;
+                    habit.streak = calculateStreak(habit.progress);
+                    
+                    const completedDays = habit.progress.filter(p => p === true).length;
+                    if (completedDays >= 30 && !habit.completed) {
+                        habit.completed = true;
+                        setCrownedHabit(habit);
+                        setShowCeremony(true);
+                    }
+                    
+                    return updated;
+                });
+            };
+ 
+            const markRelapse = (habitId, type, dayIndex) => {
+                setHabits(prev => {
+                    const updated = { ...prev };
+                    const habit = updated[type].find(h => h.id === habitId);
+                    if (!habit || habit.completed) return prev;
+                    
+                    habit.progress[dayIndex] = habit.progress[dayIndex] === false ? null : false;
+                    habit.streak = calculateStreak(habit.progress);
+                    return updated;
+                });
+            };
+ 
+            const calculateStreak = (progress) => {
+                let streak = 0;
+                for (let i = 0; i < progress.length; i++) {
+                    if (progress[i] === true) streak++;
+                    else if (progress[i] === false) streak = 0;
+                }
+                return streak;
+            };
+ 
+            const getDaysSinceStart = (startDate) => {
+                const start = new Date(startDate);
+                const now = new Date();
+                return Math.floor((now - start) / (1000 * 60 * 60 * 24));
+            };
+ 
+            const CrownCeremony = () => {
+                useEffect(() => {
+                    const container = document.getElementById('confetti-container');
+                    for (let i = 0; i < 50; i++) {
+                        const confetti = document.createElement('div');
+                        confetti.className = 'confetti';
+                        confetti.style.left = Math.random() * 100 + '%';
+                        confetti.style.animationDelay = Math.random() * 2 + 's';
+                        confetti.style.backgroundColor = ['#d4af37', '#10b981', '#6366f1'][Math.floor(Math.random() * 3)];
+                        container.appendChild(confetti);
+                    }
+                    setTimeout(() => {
+                        setShowCeremony(false);
+                        setCrownedHabit(null);
+                    }, 5000);
+                }, []);
+ 
+                return (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-void-900/95 backdrop-blur-sm">
+                        <div id="confetti-container" className="absolute inset-0 pointer-events-none"></div>
+                        <div className="text-center animate-fade-in relative z-10">
+                            <div className="crown-ceremony mb-8">
+                                <div className="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-aurum-400 via-aurum-200 to-emerald-400 flex items-center justify-center shadow-[0_0_80px_rgba(212,175,55,0.8)]">
+                                    <i data-lucide="crown" className="w-20 h-20 text-void-900"></i>
+                                </div>
+                            </div>
+                            <h2 className="text-5xl md:text-7xl font-display font-bold text-gilded mb-4">CROWNED</h2>
+                            <p className="poetic-text text-2xl text-aurum-200 mb-6">You have transcended. You are now a Rare Breed.</p>
+                            <div className="glass-void rounded-xl p-6 max-w-md mx-auto border border-aurum-400/50">
+                                <p className="text-ethereal-300 mb-2">For mastering:</p>
+                                <p className="text-xl font-display font-bold text-white">"{crownedHabit?.text}"</p>
+                                <p className="text-emerald-400 mt-2 font-mono">30 days of unbroken transformation</p>
+                            </div>
+                        </div>
+                    </div>
+                );
+            };
+ 
+            const HabitCard = ({ habit, type }) => {
+                const daysActive = Math.min(getDaysSinceStart(habit.startDate), 30);
+                const successDays = habit.progress.filter(p => p === true).length;
+                const relapseDays = habit.progress.filter(p => p === false).length;
+                const percentage = Math.round((successDays / 30) * 100);
+ 
+                return (
+                    <div className="glass-void rounded-xl p-6 mb-6 rare-card border-l-4 border-l-emerald-400">
+                        <div className="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 className="text-xl font-display font-bold text-white mb-1">{habit.text}</h3>
+                                <p className="text-ethereal-400 text-sm italic">"{habit.reason}"</p>
+                            </div>
+                            {habit.completed ? (
+                                <div className="flex items-center gap-2 text-aurum-400 animate-crown-pulse">
+                                    <i data-lucide="crown" className="w-6 h-6"></i>
+                                    <span className="font-bold text-sm">RARE BREED</span>
+                                </div>
+                            ) : (
+                                <div className="text-right">
+                                    <div className="text-2xl font-bold text-emerald-400">{habit.streak}</div>
+                                    <div className="text-xs text-ethereal-500">day streak</div>
+                                </div>
+                            )}
+                        </div>
+ 
+                        <div className="mb-4">
+                            <div className="flex justify-between text-sm mb-2">
+                                <span className="text-ethereal-400">Progress to Transcendence</span>
+                                <span className="text-emerald-400 font-bold">{percentage}%</span>
+                            </div>
+                            <div className="w-full bg-void-700 h-3 rounded-full overflow-hidden">
+                                <div className="bg-gradient-to-r from-emerald-500 to-aurum-400 h-full transition-all duration-500" style={{ width: `${percentage}%` }}></div>
+                            </div>
+                        </div>
+ 
+                        {!habit.completed && (
+                            <div className="mb-4">
+                                <div className="grid grid-cols-10 gap-2">
+                                    {habit.progress.map((status, idx) => {
+                                        const isFuture = idx > daysActive;
+                                        return (
+                                            <button
+                                                key={idx}
+                                                onClick={() => { if (idx === daysActive) toggleDay(habit.id, type, idx); }}
+                                                onContextMenu={(e) => { e.preventDefault(); if (idx <= daysActive) markRelapse(habit.id, type, idx); }}
+                                                disabled={isFuture}
+                                                className={`day-check w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold ${
+                                                    status === true ? 'active text-white' :
+                                                    status === false ? 'relapse text-white' :
+                                                    isFuture ? 'bg-void-800 text-ethereal-600 cursor-not-allowed' :
+                                                    'bg-void-700 text-ethereal-400 hover:bg-emerald-400/20'
+                                                }`}
+                                                title={isFuture ? 'Future day' : 'Left click: Success | Right click: Relapse'}
+                                            >
+                                                {idx + 1}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                                <p className="text-xs text-ethereal-500 mt-2 text-center">
+                                    Left click = Success | Right click = Relapse
+                                </p>
+                            </div>
+                        )}
+ 
+                        <div className="flex gap-4 text-sm">
+                            <span className="text-emerald-400 flex items-center gap-1">
+                                <i data-lucide="check-circle" className="w-4 h-4"></i>
+                                {successDays} victories
+                            </span>
+                            <span className="text-crimson-400 flex items-center gap-1">
+                                <i data-lucide="x-circle" className="w-4 h-4"></i>
+                                {relapseDays} relapses
+                            </span>
+                            <span className="text-aurum-400 flex items-center gap-1 ml-auto">
+                                <i data-lucide="calendar" className="w-4 h-4"></i>
+                                Day {daysActive + 1} of 30
+                            </span>
+                        </div>
+                    </div>
+                );
+            };
+ 
+            return (
+                <div className="max-w-4xl mx-auto pt-28 pb-12 px-4">
+                    {showCeremony && <CrownCeremony />}
+                    
+                    <div className="text-center mb-12">
+                        <h1 className="text-4xl md:text-6xl font-display font-bold text-gilded mb-4 tracking-wider">THE METAMORPHOSIS</h1>
+                        <p className="poetic-text text-xl text-ethereal-300 max-w-2xl mx-auto">
+                            "The caterpillar does not become a butterfly by accident. It is a deliberate dissolution of the self, a sacred unraveling to reveal what was always meant to be."
+                        </p>
+                    </div>
+ 
+                    <div className="glass-void rounded-2xl p-8 mb-12 border border-emerald-400/20">
+                        <h2 className="text-2xl font-display font-bold text-white mb-6 flex items-center gap-3">
+                            <i data-lucide="sparkles" className="w-6 h-6 text-emerald-400"></i>
+                            Declare Your Transformation
+                        </h2>
+                        
+                        <form onSubmit={addHabit} className="space-y-4">
+                            <div className="flex gap-4 mb-4">
+                                <button
+                                    type="button"
+                                    onClick={() => setNewHabit(prev => ({ ...prev, type: 'cultivate' }))}
+                                    className={`flex-1 py-3 rounded-lg font-bold transition-all ${
+                                        newHabit.type === 'cultivate'
+                                        ? 'bg-emerald-500 text-white'
+                                        : 'bg-void-700 text-ethereal-400 hover:bg-emerald-500/20'
+                                    }`}
+                                >
+                                    <i data-lucide="plus-circle" className="w-5 h-5 inline mr-2"></i>
+                                    Cultivate New
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setNewHabit(prev => ({ ...prev, type: 'release' }))}
+                                    className={`flex-1 py-3 rounded-lg font-bold transition-all ${
+                                        newHabit.type === 'release'
+                                        ? 'bg-crimson-500 text-white'
+                                        : 'bg-void-700 text-ethereal-400 hover:bg-crimson-500/20'
+                                    }`}
+                                >
+                                    <i data-lucide="minus-circle" className="w-5 h-5 inline mr-2"></i>
+                                    Release Old
+                                </button>
+                            </div>
+                            
+                            <input
+                                type="text"
+                                value={newHabit.text}
+                                onChange={(e) => setNewHabit(prev => ({ ...prev, text: e.target.value }))}
+                                placeholder={newHabit.type === 'cultivate' ? "What new being do you wish to become?" : "What old self do you wish to dissolve?"}
+                                className="w-full bg-void-900/80 border border-aurum-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-aurum-400 transition-colors placeholder-ethereal-600"
+                            />
+                            
+                            <input
+                                type="text"
+                                value={newHabit.reason}
+                                onChange={(e) => setNewHabit(prev => ({ ...prev, reason: e.target.value }))}
+                                placeholder="Why does this matter to your soul? (Your deeper reason)"
+                                className="w-full bg-void-900/80 border border-aurum-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-aurum-400 transition-colors placeholder-ethereal-600"
+                            />
+                            
+                            <button type="submit" className="w-full btn-emerald py-4 rounded-xl text-lg font-bold flex items-center justify-center gap-3">
+                                <i data-lucide="flame" className="w-5 h-5"></i>
+                                Ignite the 30-Day Transmutation
+                            </button>
+                        </form>
+                    </div>
+ 
+                    <div className="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h2 className="text-2xl font-display font-bold text-emerald-400 mb-6 flex items-center gap-3">
+                                <i data-lucide="sprout" className="w-6 h-6"></i>
+                                Being Cultivated
+                            </h2>
+                            {habits.cultivate.length === 0 ? (
+                                <div className="glass-void rounded-xl p-8 text-center border border-dashed border-emerald-400/30">
+                                    <p className="text-ethereal-500 poetic-text">"What seeds will you plant in the garden of your becoming?"</p>
+                                </div>
+                            ) : (
+                                habits.cultivate.map(habit => <HabitCard key={habit.id} habit={habit} type="cultivate" />)
+                            )}
+                        </div>
+ 
+                        <div>
+                            <h2 className="text-2xl font-display font-bold text-crimson-400 mb-6 flex items-center gap-3">
+                                <i data-lucide="wind" className="w-6 h-6"></i>
+                                Being Released
+                            </h2>
+                            {habits.release.length === 0 ? (
+                                <div className="glass-void rounded-xl p-8 text-center border border-dashed border-crimson-400/30">
+                                    <p className="text-ethereal-500 poetic-text">"What chains will you dissolve to set yourself free?"</p>
+                                </div>
+                            ) : (
+                                habits.release.map(habit => <HabitCard key={habit.id} habit={habit} type="release" />)
+                            )}
+                        </div>
+                    </div>
+ 
+                    <div className="mt-16">
+                        <h2 className="text-3xl font-display font-bold text-gilded mb-8 text-center">Hall of Rare Breeds</h2>
+                        <div className="glass-void rounded-2xl p-8 border border-aurum-400/30">
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                {[...habits.cultivate, ...habits.release].filter(h => h.completed).map((habit, idx) => (
+                                    <div key={idx} className="text-center p-4 bg-aurum-400/10 rounded-lg border border-aurum-400/30">
+                                        <i data-lucide="crown" className="w-8 h-8 text-aurum-400 mx-auto mb-2"></i>
+                                        <p className="text-white font-bold text-sm truncate">{habit.text}</p>
+                                        <p className="text-aurum-400 text-xs mt-1">TRANSCENDED</p>
+                                    </div>
+                                ))}
+                                {[...habits.cultivate, ...habits.release].filter(h => h.completed).length === 0 && (
+                                    <div className="col-span-full text-center py-8">
+                                        <p className="text-ethereal-500 poetic-text text-lg">"The hall awaits its first champion. Will you be the one?"</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+ 
+        // ============================================
+        // THE CODEX (HOMEPAGE)
+        // ============================================
+ 
+        const Codex = ({ setActiveTab }) => {
+            const [showConfession, setShowConfession] = useState(false);
+            const [confessionText, setConfessionText] = useState('');
+ 
+            const handleConfessionSubmit = (e) => {
+                e.preventDefault();
+                alert("Your truth has been cast into the void. You are seen. You are safe. You are Rare.");
+                setConfessionText('');
+                setShowConfession(false);
+            };
+ 
+            return (
+                <div className="min-h-screen pt-20">
+                    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-void-900/50 to-void-900"></div>
+                        
+                        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center py-20">
+                            <div className="mb-8 animate-float">
+                                <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-aurum-400 via-aurum-200 to-crimson-400 flex items-center justify-center shadow-[0_0_60px_rgba(212,175,55,0.5)]">
+                                    <i data-lucide="crown" className="w-16 h-16 text-void-900"></i>
+                                </div>
+                            </div>
+                            
+                            <h1 className="text-5xl md:text-9xl font-display font-bold text-gilded mb-6 tracking-wider animate-slide-up">RARE BREEDS</h1>
+                            
+                            <p className="poetic-text text-2xl md:text-4xl text-aurum-200/90 mb-8 max-w-4xl mx-auto leading-relaxed animate-slide-up" style={{animationDelay: '0.2s'}}>
+                                "We did not come into this world to work like robots until we die. We came to be human—to create, to love, to build our heaven on earth."
+                            </p>
+                            
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-slide-up" style={{animationDelay: '0.4s'}}>
+                                <button onClick={() => setActiveTab('enter')} className="btn-gilded px-10 py-4 rounded-xl text-lg font-bold flex items-center justify-center gap-3">
+                                    <i data-lucide="log-in" className="w-5 h-5"></i>
+                                    Enter the Conclave
+                                </button>
+                                <button onClick={() => setActiveTab('offering')} className="btn-crimson px-10 py-4 rounded-xl text-lg font-bold flex items-center justify-center gap-3">
+                                    <i data-lucide="heart-handshake" className="w-5 h-5"></i>
+                                    Support the Vision
+                                </button>
+                            </div>
+ 
+                            <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto animate-slide-up" style={{animationDelay: '0.6s'}}>
+                                <button onClick={() => setActiveTab('seminar')} className="glass-void rounded-xl p-6 border border-nebula-400/30 hover:border-nebula-400 transition-all group text-left">
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <div className="w-10 h-10 rounded-full bg-nebula-400/20 flex items-center justify-center">
+                                            <i data-lucide="calendar" className="w-5 h-5 text-nebula-400"></i>
+                                        </div>
+                                        <span className="text-nebula-400 font-mono text-xs tracking-wider">UPCOMING</span>
+                                    </div>
+                                    <h3 className="text-lg font-display font-bold text-white mb-1 group-hover:text-nebula-300 transition-colors">Next Seminar</h3>
+                                    <p className="text-ethereal-400 text-sm">{NEXT_SEMINAR.title}</p>
+                                    <p className="text-aurum-400 text-xs mt-2 font-mono">{NEXT_SEMINAR.date}</p>
+                                </button>
+ 
+                                <button onClick={() => setShowConfession(true)} className="glass-void rounded-xl p-6 border border-crimson-400/30 hover:border-crimson-400 transition-all group text-left">
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <div className="w-10 h-10 rounded-full bg-crimson-400/20 flex items-center justify-center">
+                                            <i data-lucide="heart" className="w-5 h-5 text-crimson-400"></i>
+                                        </div>
+                                        <span className="text-crimson-400 font-mono text-xs tracking-wider">SAFE SPACE</span>
+                                    </div>
+                                    <h3 className="text-lg font-display font-bold text-white mb-1 group-hover:text-crimson-300 transition-colors">Ask Deep Questions</h3>
+                                    <p className="text-ethereal-400 text-sm">Questions you've always wanted to ask but never had the guts...</p>
+                                    <p className="text-aurum-400 text-xs mt-2 font-mono">You're safe here. You're Rare.</p>
+                                </button>
+ 
+                                <button onClick={() => setActiveTab('metamorphosis')} className="glass-void rounded-xl p-6 border border-emerald-400/30 hover:border-emerald-400 transition-all group text-left">
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <div className="w-10 h-10 rounded-full bg-emerald-400/20 flex items-center justify-center">
+                                            <i data-lucide="refresh-cw" className="w-5 h-5 text-emerald-400"></i>
+                                        </div>
+                                        <span className="text-emerald-400 font-mono text-xs tracking-wider">TRANSFORM</span>
+                                    </div>
+                                    <h3 className="text-lg font-display font-bold text-white mb-1 group-hover:text-emerald-300 transition-colors">The Metamorphosis</h3>
+                                    <p className="text-ethereal-400 text-sm">Transform your habits. Become Rare.</p>
+                                    <p className="text-aurum-400 text-xs mt-2 font-mono">30 days to transcendence</p>
+                                </button>
+                            </div>
+                        </div>
+ 
+                        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                            <i data-lucide="chevron-down" className="w-8 h-8 text-aurum-400"></i>
+                        </div>
+                    </div>
+ 
+                    {showConfession && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-void-900/90 backdrop-blur-sm">
+                            <div className="glass-void rounded-2xl p-8 max-w-2xl w-full border border-crimson-400/30 animate-fade-in">
+                                <div className="text-center mb-6">
+                                    <div className="w-16 h-16 mx-auto rounded-full bg-crimson-400/20 flex items-center justify-center mb-4">
+                                        <i data-lucide="heart" className="w-8 h-8 text-crimson-400"></i>
+                                    </div>
+                                    <h2 className="text-2xl font-display font-bold text-gilded mb-2">The Confessional</h2>
+                                    <p className="poetic-text text-lg text-ethereal-300">
+                                        "Ask the deep questions you've always wanted to ask but didn't have the guts to tell anyone. Feel free—because now you're in a safe space. You're a Rare Breed."
+                                    </p>
+                                </div>
+                                
+                                <form onSubmit={handleConfessionSubmit}>
+                                    <textarea
+                                        value={confessionText}
+                                        onChange={(e) => setConfessionText(e.target.value)}
+                                        placeholder="Cast your unspoken truths into the void. No judgment. No consequence. Only witness..."
+                                        className="w-full h-40 bg-void-900/80 border border-crimson-400/30 rounded-lg p-4 text-white focus:outline-none focus:border-crimson-400 transition-colors placeholder-ethereal-600 mb-4 resize-none"
+                                    />
+                                    <div className="flex gap-3">
+                                        <button type="button" onClick={() => setShowConfession(false)} className="flex-1 py-3 rounded-lg border border-ethereal-500 text-ethereal-400 hover:bg-white/5 transition-colors">Retreat</button>
+                                        <button type="submit" className="flex-1 btn-crimson py-3 rounded-lg font-bold flex items-center justify-center gap-2">
+                                            <i data-lucide="send" className="w-4 h-4"></i>
+                                            Release into Void
+                                        </button>
+                                    </div>
+                                </form>
+                                
+                                <p className="text-xs text-ethereal-500 text-center mt-4 font-mono">Your confession is anonymized and consecrated. Only the collective bears witness.</p>
+                            </div>
+                        </div>
+                    )}
+ 
+                    <div className="max-w-6xl mx-auto px-6 py-20">
+                        <div className="glass-void rounded-2xl p-8 md:p-12 border border-aurum-400/20 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-aurum-400/10 rounded-full blur-3xl"></div>
+                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-crimson-500/10 rounded-full blur-3xl"></div>
+                            
+                            <div className="relative z-10 grid md:grid-cols-3 gap-8 items-center">
+                                <div className="md:col-span-1">
+                                    <div className="relative">
+                                        <div className="w-48 h-48 mx-auto rounded-full overflow-hidden border-4 border-aurum-400/30 animate-breathe">
+                                            <img src={FOUNDER.avatar} alt={FOUNDER.name} className="w-full h-full object-cover" />
+                                        </div>
+                                        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-aurum-400 text-void-900 px-4 py-1 rounded-full text-sm font-bold font-display">{FOUNDER.name}</div>
+                                    </div>
+                                </div>
+                                
+                                <div className="md:col-span-2">
+                                    <span className="text-aurum-400 font-mono text-sm tracking-[0.3em] mb-2 block">THE FOUNDER</span>
+                                    <h2 className="text-3xl md:text-4xl font-display font-bold text-gilded mb-4">{FOUNDER.title}</h2>
+                                    <p className="poetic-text text-xl text-ethereal-300 leading-relaxed mb-6">"{FOUNDER.bio}"</p>
+                                    <div className="flex gap-4">
+                                        <button className="btn-gilded px-6 py-3 rounded-lg font-bold flex items-center gap-2">
+                                            <i data-lucide="message-circle" className="w-4 h-4"></i>
+                                            Connect with Drim$
+                                        </button>
+                                        <button className="border border-aurum-400/50 text-aurum-400 hover:bg-aurum-400/10 px-6 py-3 rounded-lg font-bold transition-colors flex items-center gap-2">
+                                            <i data-lucide="book-open" className="w-4 h-4"></i>
+                                            Read Full Testament
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <div className="max-w-6xl mx-auto px-6 py-20">
+                        <div className="text-center mb-16">
+                            <h2 className="text-3xl md:text-5xl font-display font-bold text-gilded mb-4">THE CODEX</h2>
+                            <p className="text-ethereal-400 font-mono tracking-widest">PRINCIPLES THAT BIND US</p>
+                        </div>
+ 
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {IDEOLOGIES.map((ideology, idx) => (
+                                <div key={idx} className="glass-void rounded-2xl p-8 rare-card border-l-4 border-l-aurum-400">
+                                    <div className="flex items-start gap-4 mb-4">
+                                        <div className="w-12 h-12 rounded-full bg-aurum-400/20 flex items-center justify-center flex-shrink-0">
+                                            <i data-lucide={ideology.icon} className="w-6 h-6 text-aurum-400"></i>
+                                        </div>
+                                        <div>
+                                            <h3 className="text-xl font-display font-bold text-white mb-2">{ideology.title}</h3>
+                                            <p className="poetic-text text-lg text-ethereal-300 leading-relaxed">"{ideology.text}"</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+ 
+                        <div className="mt-20 text-center">
+                            <div className="glass-void rounded-2xl p-12 border border-aurum-400/30">
+                                <h3 className="text-3xl md:text-4xl font-display font-bold text-gilded mb-4">The System Serves Us, Or It Serves No One</h3>
+                                <p className="poetic-text text-xl text-ethereal-300 mb-8 max-w-3xl mx-auto">We are the world. The world was made for us. We are its caretakers, its consciousness, its future. Join us in building a reality where every human thrives—not just survives.</p>
+                                <button onClick={() => setActiveTab('enter')} className="btn-gilded px-12 py-4 rounded-xl text-lg font-bold">Begin Your Journey</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+ 
+        // ============================================
+        // OTHER PAGES
+        // ============================================
+ 
+        const SeminarPage = ({ setActiveTab }) => (
+            <div className="min-h-screen pt-28 pb-12 px-4">
+                <div className="max-w-4xl mx-auto">
+                    <button onClick={() => setActiveTab('codex')} className="text-ethereal-400 hover:text-aurum-400 flex items-center gap-2 mb-6 transition-colors">
+                        <i data-lucide="arrow-left" className="w-4 h-4"></i>
+                        Return to The Codex
+                    </button>
+ 
+                    <div className="glass-void rounded-2xl overflow-hidden border border-nebula-400/30">
+                        <div className="h-64 bg-gradient-to-br from-nebula-600 via-nebula-500 to-void-900 relative flex items-center justify-center">
+                            <div className="text-center z-10">
+                                <span className="text-nebula-300 font-mono text-sm tracking-[0.5em] mb-2 block">RITE OF PASSAGE</span>
+                                <h1 className="text-4xl md:text-6xl font-display font-bold text-white mb-2">{NEXT_SEMINAR.title}</h1>
+                                <p className="poetic-text text-xl text-nebula-200">{NEXT_SEMINAR.subtitle}</p>
+                            </div>
+                            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1200&h=600&fit=crop')] opacity-20 bg-cover bg-center"></div>
+                        </div>
+ 
+                        <div className="p-8 md:p-12">
+                            <div className="grid md:grid-cols-2 gap-8 mb-8">
+                                <div>
+                                    <h3 className="text-aurum-400 font-mono text-sm tracking-wider mb-2">TEMPORAL ALIGNMENT</h3>
+                                    <p className="text-2xl font-display font-bold text-white mb-1">{NEXT_SEMINAR.date}</p>
+                                    <p className="text-ethereal-400">{NEXT_SEMINAR.time}</p>
+                                </div>
+                                <div>
+                                    <h3 className="text-aurum-400 font-mono text-sm tracking-wider mb-2">SANCTUM LOCATION</h3>
+                                    <p className="text-2xl font-display font-bold text-white mb-1">{NEXT_SEMINAR.location}</p>
+                                    <p className="text-ethereal-400">{NEXT_SEMINAR.format}</p>
+                                </div>
+                            </div>
+ 
+                            <p className="poetic-text text-xl text-ethereal-300 mb-8 leading-relaxed">"{NEXT_SEMINAR.description}"</p>
+ 
+                            <div className="bg-void-800/50 rounded-xl p-6 mb-8">
+                                <div className="flex justify-between items-center mb-4">
+                                    <span className="text-ethereal-400">Sanctum Spaces Remaining</span>
+                                    <span className="text-gilded font-bold text-2xl">{NEXT_SEMINAR.spotsRemaining} / {NEXT_SEMINAR.totalSpots}</span>
+                                </div>
+                                <div className="w-full bg-void-700 h-3 rounded-full">
+                                    <div className="bg-nebula-500 h-3 rounded-full transition-all" style={{ width: `${((NEXT_SEMINAR.totalSpots - NEXT_SEMINAR.spotsRemaining) / NEXT_SEMINAR.totalSpots) * 100}%` }}></div>
+                                </div>
+                            </div>
+ 
+                            <button className="w-full btn-nebula py-4 rounded-xl text-lg font-bold flex items-center justify-center gap-3">
+                                <i data-lucide="ticket" className="w-5 h-5"></i>
+                                Secure Your Passage
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+ 
+        const EnterConclave = ({ setIsAuthenticated, setUserCircle, setActiveTab }) => {
+            const [isSignUp, setIsSignUp] = useState(true);
+            const [formData, setFormData] = useState({ name: '', email: '', phone: '', country: '', city: '', code: '' });
+            const [assignedCircle, setAssignedCircle] = useState(null);
+ 
+            const countries = ["Nigeria", "United States", "United Kingdom", "Canada", "Australia", "Germany", "France", "Japan", "China", "Brazil", "South Africa", "Kenya", "India", "UAE", "Singapore", "Sweden", "Norway", "Iceland"];
+ 
+            const determineCircle = (country, city) => {
+                const countryLower = country.toLowerCase();
+                for (const circle of SANCTUARY_CIRCLES) {
+                    if (circle.regions.some(r => countryLower.includes(r.toLowerCase()))) return circle;
+                }
+                if (["nigeria", "south africa", "kenya", "egypt", "morocco", "ghana"].includes(countryLower)) return SANCTUARY_CIRCLES.find(c => c.id === 5);
+                if (["united states", "canada", "mexico", "brazil", "argentina", "chile"].includes(countryLower)) return SANCTUARY_CIRCLES.find(c => c.id === 3);
+                if (["united kingdom", "france", "germany", "italy", "spain", "netherlands", "belgium"].includes(countryLower)) return SANCTUARY_CIRCLES.find(c => c.id === 6);
+                if (["japan", "china", "south korea", "singapore", "thailand", "vietnam", "malaysia"].includes(countryLower)) return SANCTUARY_CIRCLES.find(c => c.id === 2);
+                if (["iceland", "norway", "sweden", "finland", "denmark"].includes(countryLower)) return SANCTUARY_CIRCLES.find(c => c.id === 1);
+                if (["australia", "new zealand", "fiji"].includes(countryLower)) return SANCTUARY_CIRCLES.find(c => c.id === 4);
+                return SANCTUARY_CIRCLES[2];
+            };
+ 
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                const circle = determineCircle(formData.country, formData.city);
+                setAssignedCircle(circle);
+                setUserCircle(circle);
+                setTimeout(() => {
+                    setIsAuthenticated(true);
+                    setActiveTab('atrium');
+                }, 2000);
+            };
+ 
+            return (
+                <div className="min-h-screen pt-28 pb-12 px-4 flex items-center justify-center">
+                    <div className="max-w-2xl w-full">
+                        {!assignedCircle ? (
+                            <div className="glass-void rounded-2xl p-8 md:p-12 border border-aurum-400/20">
+                                <div className="text-center mb-8">
+                                    <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-aurum-400 to-crimson-500 flex items-center justify-center mb-4">
+                                        <i data-lucide="key" className="w-10 h-10 text-void-900"></i>
+                                    </div>
+                                    <h1 className="text-3xl md:text-4xl font-display font-bold text-gilded mb-2">{isSignUp ? 'Enter the Conclave' : 'Return to the Fold'}</h1>
+                                    <p className="text-ethereal-400 font-mono text-sm">{isSignUp ? 'Your sanctuary awaits discovery' : 'Resume your journey'}</p>
+                                </div>
+ 
+                                <form onSubmit={handleSubmit} className="space-y-5">
+                                    {isSignUp && (
+                                        <>
+                                            <div>
+                                                <label className="block text-aurum-400 text-sm mb-2 font-mono tracking-wider">Chosen Name</label>
+                                                <input type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} placeholder="How shall the Conclave know you?" className="w-full bg-void-900/80 border border-aurum-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-aurum-400 transition-colors placeholder-ethereal-600" />
+                                            </div>
+                                            <div className="grid md:grid-cols-2 gap-4">
+                                                <div>
+                                                    <label className="block text-aurum-400 text-sm mb-2 font-mono tracking-wider">Realm (Country)</label>
+                                                    <select required value={formData.country} onChange={(e) => setFormData({...formData, country: e.target.value})} className="w-full bg-void-900/80 border border-aurum-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-aurum-400 transition-colors">
+                                                        <option value="">Select your realm...</option>
+                                                        {countries.map(c => <option key={c} value={c}>{c}</option>)}
+                                                    </select>
+                                                </div>
+                                                <div>
+                                                    <label className="block text-aurum-400 text-sm mb-2 font-mono tracking-wider">Sanctuary (City)</label>
+                                                    <input type="text" required value={formData.city} onChange={(e) => setFormData({...formData, city: e.target.value})} placeholder="Your city of residence" className="w-full bg-void-900/80 border border-aurum-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-aurum-400 transition-colors placeholder-ethereal-600" />
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
+                                    
+                                    <div>
+                                        <label className="block text-aurum-400 text-sm mb-2 font-mono tracking-wider">Essence Channel (Email)</label>
+                                        <input type="email" required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} placeholder="your@email.com" className="w-full bg-void-900/80 border border-aurum-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-aurum-400 transition-colors placeholder-ethereal-600" />
+                                    </div>
+ 
+                                    {!isSignUp && (
+                                        <div>
+                                            <label className="block text-aurum-400 text-sm mb-2 font-mono tracking-wider">Access Code</label>
+                                            <input type="password" required value={formData.code} onChange={(e) => setFormData({...formData, code: e.target.value})} placeholder="Enter your sacred code" className="w-full bg-void-900/80 border border-aurum-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-aurum-400 transition-colors placeholder-ethereal-600" />
+                                        </div>
+                                    )}
+ 
+                                    <button type="submit" className="w-full btn-gilded py-4 rounded-xl text-lg font-bold flex items-center justify-center gap-3">
+                                        <i data-lucide={isSignUp ? "log-in" : "unlock"} className="w-5 h-5"></i>
+                                        {isSignUp ? 'Initialize Entry' : 'Access the Conclave'}
+                                    </button>
+                                </form>
+ 
+                                <div className="mt-6 text-center">
+                                    <button onClick={() => setIsSignUp(!isSignUp)} className="text-ethereal-400 hover:text-aurum-400 text-sm transition-colors">
+                                        {isSignUp ? 'Already initiated? Return to the fold' : 'New to the Conclave? Enter here'}
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="glass-void rounded-2xl p-8 md:p-12 border border-aurum-400/30 text-center animate-fade-in">
+                                <div className="w-24 h-24 mx-auto rounded-full bg-aurum-400/20 flex items-center justify-center mb-6 location-pulse">
+                                    <i data-lucide="map-pin" className="w-12 h-12 text-aurum-400"></i>
+                                </div>
+                                <h2 className="text-2xl md:text-3xl font-display font-bold text-gilded mb-4">Your Circle Awaits</h2>
+                                <p className="text-ethereal-300 mb-6">Based on your resonance coordinates in <span className="text-aurum-400 font-bold">{formData.city}, {formData.country}</span>, you have been assigned to:</p>
+                                <div className="bg-void-800/50 rounded-xl p-6 mb-6 border border-aurum-400/20">
+                                    <h3 className="text-xl font-display font-bold text-white mb-2">{assignedCircle.name}</h3>
+                                    <p className="text-aurum-400 font-mono text-sm mb-2">{assignedCircle.location}</p>
+                                    <p className="text-ethereal-400 text-sm">Focus: {assignedCircle.focus}</p>
+                                    <p className="text-ethereal-500 text-xs mt-2">{assignedCircle.members} members strong</p>
+                                </div>
+                                <p className="text-ethereal-400 text-sm animate-pulse">Initializing your essence...</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+ 
+        const SacredOffering = () => {
+            const [amount, setAmount] = useState('');
+            const [currency, setCurrency] = useState(CURRENCIES[0]);
+            const [dedication, setDedication] = useState('');
+            const [showContact, setShowContact] = useState(false);
+ 
+            const convertAmount = (val) => {
+                if (!val) return 0;
+                return (parseFloat(val) * currency.rate).toFixed(currency.code === 'BTC' || currency.code === 'ETH' ? 6 : 2);
+            };
+ 
+            return (
+                <div className="max-w-4xl mx-auto pt-28 pb-12 px-4">
+                    <div className="text-center mb-12">
+                        <div className="w-24 h-24 rounded-full bg-gradient-to-br from-aurum-400 to-aurum-300 flex items-center justify-center mx-auto mb-6 animate-float shadow-[0_0_40px_rgba(212,175,55,0.4)]">
+                            <i data-lucide="heart-handshake" className="w-12 h-12 text-void-900"></i>
+                        </div>
+                        <h1 className="text-4xl md:text-6xl font-display font-bold text-gilded mb-4 tracking-wider">SACRED OFFERING</h1>
+                        <p className="poetic-text text-xl text-ethereal-300 max-w-2xl mx-auto">"Your contribution is not merely currency—it is the fuel that powers our collective liberation."</p>
+                    </div>
+ 
+                    <div className="grid md:grid-cols-3 gap-6 mb-12">
+                        <div className="glass-void rounded-xl p-6 text-center border-t-4 border-t-aurum-400">
+                            <div className="text-4xl font-bold text-gilded mb-2">12,847</div>
+                            <div className="text-sm text-ethereal-400 font-mono">Total Offerings</div>
+                        </div>
+                        <div className="glass-void rounded-xl p-6 text-center border-t-4 border-t-nebula-400">
+                            <div className="text-4xl font-bold text-nebula-400 mb-2">4.2M Æ</div>
+                            <div className="text-sm text-ethereal-400 font-mono">Distributed</div>
+                        </div>
+                        <div className="glass-void rounded-xl p-6 text-center border-t-4 border-t-crimson-400">
+                            <div className="text-4xl font-bold text-crimson-400 mb-2">89</div>
+                            <div className="text-sm text-ethereal-400 font-mono">Lives Liberated</div>
+                        </div>
+                    </div>
+ 
+                    <div className="glass-void rounded-2xl p-8 border border-aurum-400/20">
+                        <h3 className="text-xl font-display font-bold text-white mb-4 flex items-center gap-2">
+                            <i data-lucide="coins" className="w-5 h-5 text-aurum-400"></i>
+                            Select Your Offering
+                        </h3>
+                        
+                        <div className="mb-6">
+                            <label className="block text-aurum-400 text-sm mb-2 font-mono tracking-wider">Currency</label>
+                            <div className="grid grid-cols-4 md:grid-cols-7 gap-2">
+                                {CURRENCIES.map((curr) => (
+                                    <button key={curr.code} onClick={() => setCurrency(curr)} className={`py-2 px-3 rounded-lg text-sm font-bold transition-all ${currency.code === curr.code ? 'bg-aurum-400 text-void-900' : 'bg-void-800 text-ethereal-400 hover:bg-aurum-400/20'}`}>
+                                        {curr.code}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+ 
+                        <div className="grid grid-cols-3 md:grid-cols-6 gap-3 mb-6">
+                            {[10, 25, 50, 100, 250, 500].map(amt => (
+                                <button key={amt} onClick={() => setAmount(amt.toString())} className="py-4 rounded-xl bg-void-800 hover:bg-aurum-400/20 border border-aurum-400/30 transition-all group">
+                                    <div className="text-xl font-bold text-gilded group-hover:scale-110 transition-transform">{currency.symbol}{amt}</div>
+                                </button>
+                            ))}
+                        </div>
+ 
+                        <div className="mb-6">
+                            <label className="block text-aurum-400 text-sm mb-2 font-mono tracking-wider">Custom Offering</label>
+                            <div className="relative">
+                                <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-aurum-400 text-xl font-bold">{currency.symbol}</span>
+                                <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter amount..." className="w-full bg-void-900/80 border border-aurum-400/30 rounded-lg pl-12 pr-4 py-4 text-white text-xl focus:outline-none focus:border-aurum-400" />
+                            </div>
+                            {amount && <p className="text-sm text-ethereal-400 mt-2">≈ {convertAmount(amount)} {currency.code}</p>}
+                        </div>
+ 
+                        <button className="w-full btn-gilded py-4 rounded-xl text-lg font-bold flex items-center justify-center gap-3 mb-6">
+                            <i data-lucide="sparkles" className="w-5 h-5"></i>
+                            Transmit Offering
+                        </button>
+ 
+                        <div className="border-t border-white/10 pt-6">
+                            <button onClick={() => setShowContact(!showContact)} className="w-full flex items-center justify-between text-ethereal-400 hover:text-aurum-400 transition-colors mb-4">
+                                <span className="flex items-center gap-2"><i data-lucide="phone" className="w-4 h-4"></i>Alternative payment methods?</span>
+                                <i data-lucide={showContact ? "chevron-up" : "chevron-down"} className="w-4 h-4"></i>
+                            </button>
+                            
+                            {showContact && (
+                                <div className="bg-void-800/50 rounded-lg p-6 animate-fade-in">
+                                    <p className="text-ethereal-300 mb-4 text-sm">Contact the Archon directly for wire transfers, mobile money, crypto, etc.:</p>
+                                    <div className="space-y-3">
+                                        <a href={`tel:${CONTACT_INFO.phone}`} className="flex items-center gap-3 text-aurum-400"><i data-lucide="phone" className="w-5 h-5"></i><span className="font-mono text-lg">{CONTACT_INFO.phone}</span></a>
+                                        <a href={`https://wa.me/${CONTACT_INFO.whatsapp.replace(/[^0-9]/g, '')}`} className="flex items-center gap-3 text-green-400"><i data-lucide="message-circle" className="w-5 h-5"></i><span className="font-mono">WhatsApp: {CONTACT_INFO.whatsapp}</span></a>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+ 
+        const ManifestoCard = ({ manifesto, onEndorse, onEcho }) => {
+            const [showEchoes, setShowEchoes] = useState(false);
+            const [newEcho, setNewEcho] = useState("");
+ 
+            const handleEchoSubmit = (e) => {
+                e.preventDefault();
+                if (!newEcho.trim()) return;
+                onEcho(manifesto.id, newEcho);
+                setNewEcho("");
+            };
+ 
+            return (
+                <div className="glass-void rounded-xl p-6 mb-6 rare-card">
+                    <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-center gap-4">
+                            <img src={manifesto.avatar} alt={manifesto.author} className="w-14 h-14 rounded-full border-2 border-aurum-400/50" />
+                            <div>
+                                <h3 className="font-display font-bold text-aurum-200 text-lg">{manifesto.author}</h3>
+                                <span className="text-xs text-ethereal-500 font-mono">{manifesto.timestamp}</span>
+                            </div>
+                        </div>
+                        <span className="px-3 py-1 rounded-full bg-crimson-500/20 text-crimson-400 text-xs border border-crimson-500/50 font-mono">VENTURE.{String(manifesto.id).padStart(3, '0')}</span>
+                    </div>
+                    <p className="text-ethereal-300 mb-6 leading-relaxed text-lg font-light border-l-2 border-aurum-400/30 pl-4">{manifesto.content}</p>
+                    <div className="flex items-center gap-6 border-t border-white/10 pt-4">
+                        <button onClick={() => onEndorse(manifesto.id)} className="flex items-center gap-2 text-ethereal-400 hover:text-aurum-400 transition-colors group">
+                            <i data-lucide="flame" className="w-5 h-5 group-hover:fill-aurum-400"></i>
+                            <span className="font-mono text-sm">{manifesto.endorsements} {TERMS.likes}</span>
+                        </button>
+                        <button onClick={() => setShowEchoes(!showEchoes)} className="flex items-center gap-2 text-ethereal-400 hover:text-nebula-400 transition-colors">
+                            <i data-lucide="message-circle" className="w-5 h-5"></i>
+                            <span className="font-mono text-sm">{manifesto.echoes.length} {TERMS.comments}</span>
+                        </button>
+                    </div>
+                    {showEchoes && (
+                        <div className="mt-6 pt-4 border-t border-white/5">
+                            <div className="space-y-4 mb-4">
+                                {manifesto.echoes.map(echo => (
+                                    <div key={echo.id} className="flex gap-3 bg-void-800/50 p-4 rounded-lg">
+                                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-aurum-400 to-crimson-500 flex items-center justify-center text-xs font-bold text-void-900">{echo.user[0]}</div>
+                                        <div>
+                                            <span className="text-aurum-400 text-sm font-bold">{echo.user}</span>
+                                            <p className="text-ethereal-400 text-sm mt-1">{echo.text}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <form onSubmit={handleEchoSubmit} className="flex gap-2">
+                                <input type="text" value={newEcho} onChange={(e) => setNewEcho(e.target.value)} placeholder="Cast your echo..." className="flex-1 bg-void-900/80 border border-aurum-400/20 rounded-lg px-4 py-3 text-sm" />
+                                <button type="submit" className="bg-aurum-400/10 text-aurum-400 border border-aurum-400/50 px-4 py-2 rounded-lg"><i data-lucide="send" className="w-4 h-4"></i></button>
+                            </form>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+ 
+        const Atrium = ({ manifestos, setManifestos }) => {
+            const [newManifesto, setNewManifesto] = useState("");
+ 
+            const handleProclaim = (e) => {
+                e.preventDefault();
+                if(!newManifesto.trim()) return;
+                const manifesto = {
+                    id: Date.now(),
+                    author: "You (Aspirant)",
+                    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
+                    content: newManifesto,
+                    endorsements: 0,
+                    echoes: [],
+                    timestamp: "Just now"
+                };
+                setManifestos([manifesto, ...manifestos]);
+                setNewManifesto("");
+            };
+ 
+            const handleEndorse = (id) => {
+                setManifestos(manifestos.map(m => m.id === id ? {...m, endorsements: m.endorsements + 1} : m));
+            };
+ 
+            const handleEcho = (id, text) => {
+                setManifestos(manifestos.map(m => {
+                    if(m.id === id) return {...m, echoes: [...m.echoes, {id: Date.now(), user: "You", text}]};
+                    return m;
+                }));
+            };
+ 
+            return (
+                <div className="max-w-3xl mx-auto pt-28 pb-12 px-4">
+                    <div className="mb-10 text-center">
+                        <h1 className="text-4xl md:text-6xl font-display font-bold text-gilded mb-4 tracking-wider">THE ATRIUM</h1>
+                        <p className="text-ethereal-400 font-mono tracking-widest text-sm">WHERE VISIONS MANIFEST INTO REALITY</p>
+                    </div>
+                    <div className="glass-void rounded-xl p-1 mb-8 border border-aurum-400/30">
+                        <form onSubmit={handleProclaim} className="relative">
+                            <textarea value={newManifesto} onChange={(e) => setNewManifesto(e.target.value)} className="w-full bg-transparent text-white p-5 focus:outline-none resize-none h-32 placeholder-ethereal-600 text-lg" placeholder="Proclaim your venture into existence..."></textarea>
+                            <div className="absolute bottom-3 right-3">
+                                <button className="btn-gilded px-6 py-2 rounded-lg text-sm font-bold flex items-center gap-2"><i data-lucide="sparkles" className="w-4 h-4"></i>{TERMS.post}</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div>
+                        {manifestos.map(manifesto => <ManifestoCard key={manifesto.id} manifesto={manifesto} onEndorse={handleEndorse} onEcho={handleEcho} />)}
+                    </div>
+                </div>
+            );
+        };
+ 
+        const Forge = () => (
+            <div className="max-w-5xl mx-auto pt-28 pb-12 px-4">
+                <div className="text-center mb-12">
+                    <h1 className="text-4xl md:text-5xl font-display font-bold text-gilded mb-2 tracking-wider">THE FORGE</h1>
+                    <p className="text-aurum-400 font-mono tracking-[0.3em] text-sm">ESSENCE EXCHANGE PROTOCOL</p>
+                </div>
+                <div className="grid gap-6">
+                    {FORGE_OPPORTUNITIES.map(opportunity => (
+                        <div key={opportunity.id} className="glass-void p-6 rounded-xl flex flex-col md:flex-row items-center justify-between rare-card border-l-4 border-l-aurum-400">
+                            <div className="mb-4 md:mb-0 flex-1">
+                                <h3 className="text-2xl font-display font-bold text-white mb-2">{opportunity.title}</h3>
+                                <div className="flex gap-2 mb-3">
+                                    {opportunity.tags.map(tag => <span key={tag} className="text-xs bg-aurum-400/10 text-aurum-300 px-3 py-1 rounded-full border border-aurum-400/30 font-mono">{tag}</span>)}
+                                </div>
+                            </div>
+                            <div className="text-center md:text-right flex items-center gap-6">
+                                <div>
+                                    <div className="text-2xl font-display font-bold text-gilded mb-1">{opportunity.essence}</div>
+                                    <div className="text-xs text-ethereal-500 font-mono">weekly</div>
+                                </div>
+                                <button className={`px-6 py-3 rounded-lg font-bold text-sm ${opportunity.status === 'Open' ? 'btn-gilded' : 'bg-void-700 text-ethereal-500 cursor-not-allowed'}`}>{opportunity.status === 'Open' ? 'ACCEPT QUEST' : 'QUEST CLAIMED'}</button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+ 
+        const Resonance = ({ isArchon }) => {
+            const [isChanneling, setIsChanneling] = useState(false);
+            return (
+                <div className="max-w-4xl mx-auto pt-28 pb-12 px-4 flex flex-col items-center">
+                    <div className="w-full glass-void rounded-2xl p-8 md:p-12 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-96 h-96 bg-aurum-400/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                        <div className="relative z-10 text-center">
+                            <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-2 tracking-wider">{RESONANCE_DATA.title}</h2>
+                            <p className="text-ethereal-400 font-mono mb-8">Curated by {RESONANCE_DATA.archon}</p>
+                            <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-10">
+                                <div className="relative group">
+                                    <div className="w-56 h-56 md:w-72 md:h-72 rounded-full border-4 border-aurum-400/20 p-3 animate-[spin_20s_linear_infinite]">
+                                        <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=500&h=500&fit=crop" className="w-full h-full rounded-full object-cover opacity-80" />
+                                    </div>
+                                    <button onClick={() => setIsChanneling(!isChanneling)} className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-gradient-to-br from-aurum-400 to-aurum-500 rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(212,175,55,0.5)] hover:scale-110 transition-transform">
+                                        {isChanneling ? <i data-lucide="pause" className="w-8 h-8 text-void-900 fill-current"></i> : <i data-lucide="play" className="w-8 h-8 text-void-900 fill-current ml-1"></i>}
+                                    </button>
+                                </div>
+                                <div className="text-left">
+                                    <h3 className="text-2xl font-display font-bold text-white mb-4">Frequency Manifest</h3>
+                                    <div className="space-y-3">
+                                        {RESONANCE_DATA.tracks.map((track, idx) => (
+                                            <div key={idx} className="flex items-center gap-4 p-3 rounded-lg bg-void-800/50 hover:bg-aurum-400/10 transition-colors cursor-pointer group">
+                                                <span className="text-aurum-400 font-mono w-6">{idx + 1}</span>
+                                                <div className="flex-1">
+                                                    <div className="text-white font-medium group-hover:text-aurum-200">{track.title}</div>
+                                                    <div className="text-xs text-ethereal-500">{track.artisan}</div>
+                                                </div>
+                                                <span className="text-ethereal-500 font-mono text-sm">{track.duration}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                            <button className="btn-nebula px-8 py-4 rounded-xl font-bold text-lg flex items-center gap-3 mx-auto"><i data-lucide="radio" className="w-5 h-5"></i>{TERMS.stream}</button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+ 
+        const Artifacts = () => (
+            <div className="max-w-6xl mx-auto pt-28 pb-12 px-4">
+                <div className="text-center mb-12">
+                    <h1 className="text-4xl md:text-5xl font-display font-bold text-gilded mb-2 tracking-wider">THE RELIQUARY</h1>
+                    <p className="text-ethereal-400 font-mono tracking-[0.3em] text-sm">PHYSICAL MANIFESTATIONS</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {ARTIFACTS.map(artifact => (
+                        <div key={artifact.id} className="glass-void rounded-xl overflow-hidden merch-card group">
+                            <div className="relative h-64 overflow-hidden">
+                                <img src={artifact.image} alt={artifact.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                                <div className="absolute top-3 left-3"><span className="bg-void-900/80 text-aurum-400 text-xs px-3 py-1 rounded-full border border-aurum-400/30 font-mono">{artifact.category}</span></div>
+                            </div>
+                            <div className="p-5">
+                                <h3 className="font-display font-bold text-white mb-2 text-lg">{artifact.name}</h3>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-2xl font-bold text-gilded">{artifact.price} Æ</span>
+                                    <button className="btn-gilded px-4 py-2 rounded-lg text-sm">Acquire</button>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+ 
+        const Sanctuaries = ({ userCircle }) => {
+            const [selectedCircle, setSelectedCircle] = useState(null);
+            return (
+                <div className="max-w-6xl mx-auto pt-28 pb-12 px-4">
+                    <div className="text-center mb-12">
+                        <h1 className="text-4xl md:text-5xl font-display font-bold text-gilded mb-2 tracking-wider">THE SANCTUARIES</h1>
+                        <p className="text-ethereal-400 font-mono tracking-[0.3em] text-sm">GEOGRAPHIC CIRCLES</p>
+                    </div>
+                    {userCircle && (
+                        <div className="glass-void rounded-xl p-6 mb-8 border border-aurum-400/30 bg-aurum-400/5">
+                            <div className="flex items-center gap-4">
+                                <div className="w-16 h-16 rounded-full bg-aurum-400/20 flex items-center justify-center location-pulse"><i data-lucide="map-pin" className="w-8 h-8 text-aurum-400"></i></div>
+                                <div className="flex-1">
+                                    <h3 className="text-xl font-display font-bold text-white">Your Assigned Circle</h3>
+                                    <p className="text-ethereal-400">You have been called to: <span className="text-aurum-400 font-bold">{userCircle.name}</span></p>
+                                </div>
+                                <button className="btn-gilded px-6 py-2 rounded-lg">Enter Circle</button>
+                            </div>
+                        </div>
+                    )}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {SANCTUARY_CIRCLES.map(circle => (
+                            <div key={circle.id} onClick={() => setSelectedCircle(circle)} className={`glass-void rounded-xl p-6 cursor-pointer transition-all ${selectedCircle?.id === circle.id ? 'border-aurum-400 bg-aurum-400/10' : 'hover:border-aurum-400/30'} ${userCircle?.id === circle.id ? 'border-aurum-400/50' : ''}`}>
+                                <div className="flex items-start justify-between mb-4">
+                                    <div>
+                                        <h3 className="text-xl font-display font-bold text-white mb-1">{circle.name}</h3>
+                                        <p className="text-aurum-400 font-mono text-sm">{circle.location}</p>
+                                    </div>
+                                    <span className="text-2xl font-bold text-gilded">{circle.members}</span>
+                                </div>
+                                {userCircle?.id === circle.id && <div className="text-xs text-aurum-400 font-mono mb-2">★ Your Circle</div>}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+ 
+        const Essence = () => (
+            <div className="max-w-4xl mx-auto pt-28 pb-12 px-4">
+                <div className="glass-void rounded-2xl overflow-hidden">
+                    <div className="h-48 bg-gradient-to-r from-void-900 via-aurum-400/20 to-void-900 relative">
+                        <div className="absolute bottom-0 left-8 transform translate-y-1/2">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop" className="w-32 h-32 rounded-full border-4 border-void-900 shadow-2xl" />
+                        </div>
+                    </div>
+                    <div className="pt-20 px-8 pb-8">
+                        <div className="flex justify-between items-start mb-6">
+                            <div>
+                                <h1 className="text-3xl font-display font-bold text-white">Aspirant_Nova</h1>
+                                <p className="text-aurum-400 font-mono">Circle of the Western Winds • Level 4</p>
+                            </div>
+                            <button className="border border-aurum-400/50 hover:bg-aurum-400/10 text-aurum-400 px-4 py-2 rounded-lg text-sm font-bold">TRANSMUTE ESSENCE</button>
+                        </div>
+                        <div className="grid grid-cols-3 gap-4 mb-8">
+                            <div className="glass-void-light p-4 rounded-xl text-center">
+                                <div className="text-2xl font-bold text-gilded">18</div>
+                                <div className="text-xs text-ethereal-400 uppercase">Ventures</div>
+                            </div>
+                            <div className="glass-void-light p-4 rounded-xl text-center">
+                                <div className="text-2xl font-bold text-aurum-400">12,450</div>
+                                <div className="text-xs text-ethereal-400 uppercase">Æ Accumulated</div>
+                            </div>
+                            <div className="glass-void-light p-4 rounded-xl text-center">
+                                <div className="text-2xl font-bold text-nebula-400">892</div>
+                                <div className="text-xs text-ethereal-400 uppercase">Resonance</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+ 
+        // ============================================
+        // MAIN APP
+        // ============================================
+ 
+        const App = () => {
+            const [activeTab, setActiveTab] = useState('codex');
+            const [isAuthenticated, setIsAuthenticated] = useState(false);
+            const [userCircle, setUserCircle] = useState(null);
+            const [manifestos, setManifestos] = useState(INITIAL_MANIFESTOS);
+            const [essence, setEssence] = useState(12450);
+ 
+            useEffect(() => {
+                lucide.createIcons();
+            }, [activeTab, manifestos, isAuthenticated]);
+ 
+            return (
+                <div className="min-h-screen text-gray-100 font-sans selection:bg-aurum-400 selection:text-void-900">
+                    <Navbar activeTab={activeTab} setActiveTab={setActiveTab} essence={essence} isAuthenticated={isAuthenticated} />
+                    
+                    <main>
+                        {activeTab === 'codex' && <Codex setActiveTab={setActiveTab} />}
+                        {activeTab === 'enter' && <EnterConclave setIsAuthenticated={setIsAuthenticated} setUserCircle={setUserCircle} setActiveTab={setActiveTab} />}
+                        {activeTab === 'offering' && <SacredOffering />}
+                        {activeTab === 'metamorphosis' && <Metamorphosis />}
+                        {activeTab === 'seminar' && <SeminarPage setActiveTab={setActiveTab} />}
+                        {isAuthenticated && (
+                            <>
+                                {activeTab === 'atrium' && <Atrium manifestos={manifestos} setManifestos={setManifestos} />}
+                                {activeTab === 'forge' && <Forge />}
+                                {activeTab === 'resonance' && <Resonance isArchon={true} />}
+                                {activeTab === 'artifacts' && <Artifacts />}
+                                {activeTab === 'sanctuaries' && <Sanctuaries userCircle={userCircle} />}
+                                {activeTab === 'essence' && <Essence />}
+                            </>
+                        )}
+                    </main>
+                </div>
+            );
+        };
+ 
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+ 
+    <!-- Constellation Animation -->
+    <script>
+        const canvas = document.getElementById('constellation');
+        const ctx = canvas.getContext('2d');
+        let width, height, stars = [];
+        
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+        
+        class Star {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.3;
+                this.vy = (Math.random() - 0.5) * 0.3;
+                this.size = Math.random() * 2;
+                this.opacity = Math.random() * 0.8 + 0.2;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) this.reset();
+            }
+            draw() {
+                ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        function initStars() {
+            stars = [];
+            for(let i = 0; i < 150; i++) stars.push(new Star());
+        }
+        
+        function drawConnections() {
+            for(let i = 0; i < stars.length; i++) {
+                for(let j = i + 1; j < stars.length; j++) {
+                    const dx = stars[i].x - stars[j].x;
+                    const dy = stars[i].y - stars[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if(distance < 100) {
+                        ctx.strokeStyle = `rgba(212, 175, 55, ${0.1 * (1 - distance/100)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(stars[i].x, stars[i].y);
+                        ctx.lineTo(stars[j].x, stars[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+        
+        function animate() {
+            ctx.fillStyle = '#0a0a0f';
+            ctx.fillRect(0, 0, width, height);
+            stars.forEach(star => { star.update(); star.draw(); });
+            drawConnections();
+            requestAnimationFrame(animate);
+        }
+        
+        window.addEventListener('resize', () => { resize(); initStars(); });
+        resize();
+        initStars();
+        animate();
+    </script>
+</body>
+</html>
