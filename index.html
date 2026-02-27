@@ -1,47 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RARE BREEDS | The Enlightened Collective</title>
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-
-  <!-- Supabase JS client -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <!-- React & ReactDOM -->
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-
-  <!-- Babel for JSX -->
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <style>
-    body {
-      font-family: 'Space Grotesk', sans-serif;
-      background-color: #0f172a;
-      color: #f8fafc;
-    }
-    .fade-in {
-      animation: fadeIn 0.6s ease-out;
-    }
-    @keyframes fadeIn {
-      from {opacity:0; transform: translateY(10px);}
-      to {opacity:1; transform: translateY(0);}
-    }
-  </style>
-</head>
-<body>
-  <div id="root"></div>
-
   <script type="text/babel">
     // 🔵 Supabase setup — MUST be at the very top
     const SUPABASE_URL = "https://atdgbsawmmfabustzxcg.supabase.co";
@@ -123,8 +79,11 @@
       );
     }
 
-    ReactDOM.render(<App />, document.getElementById('root')); 
-    <script>
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+
+  <!-- Tailwind configuration should be in its own script tag -->
+  <script>
         tailwind.config = {
             theme: {
                 extend: {
