@@ -40,92 +40,219 @@
     <div id="root"></div>
 
     <!-- Supabase + React App -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script type="text/babel">
-        // 🔵 Supabase setup — MUST be at the very top
-        const SUPABASE_URL = "https://atdgbsawmmfabustzxcg.supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_NXrZkKCZKmNBS8I1HKuRtA_NCRn7j33";
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-        function App() {
-            const [users, setUsers] = React.useState([]);
-            const [name, setName] = React.useState('');
-            const [email, setEmail] = React.useState('');
-            const [loading, setLoading] = React.useState(false);
+<script type="text/babel">
+const SUPABASE_URL = "https://atdgbsawmmfabustzxcg.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_NXrZkKCZKmNBS8I1HKuRtA_NCRn7j33";
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-            // Fetch users
-            React.useEffect(() => {
+function App() {
+
+    // 🔐 Auth state
+    const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+    const [authEmail, setAuthEmail] = React.useState('');
+    const [authPassword, setAuthPassword] = React.useState('');
+
+    // 👥 User table state
+    const [users, setUsers] = React.useState([]);
+    const [name, setName] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [loading, setLoading] = React.useState(false);
+
+    // 🔄 Restore session on refresh
+    React.useEffect(() => {
+        const checkSession = async () => {
+            const { data } = await supabase.auth.getSession();
+            if (data?.session) {
+                setIsAuthenticated(true);
                 fetchUsers();
-            }, []);
-
-            async function fetchUsers() {
-                const { data, error } = await supabase.from('users').select('*');
-                if (error) console.error(error);
-                else setUsers(data);
             }
+        };
 
-            async function addUser(e) {
-                e.preventDefault();
-                if (!name || !email) return alert("Enter both name and email!");
-                setLoading(true);
-                const { data, error } = await supabase.from('users').insert([{ name, email }]);
-                if (error) console.error(error);
-                else setUsers([...users, ...data]);
-                setName('');
-                setEmail('');
-                setLoading(false);
+        checkSession();
+
+        const { data: listener } = supabase.auth.onAuthStateChange(
+            (event, session) => {
+                if (session) {
+                    setIsAuthenticated(true);
+                    fetchUsers();
+                } else {
+                    setIsAuthenticated(false);
+                }
             }
+        );
 
-            return (
-                <div className="p-6 max-w-4xl mx-auto">
-                    <h1 className="text-5xl font-bold mb-4 text-center animate-bounce">RARE BREEDS</h1>
-                    <p className="text-center mb-6 text-gray-300">The Enlightened Collective</p>
+        return () => {
+            listener.subscription.unsubscribe();
+        };
+    }, []);
 
-                    {/* Add User Form */}
-                    <form onSubmit={addUser} className="mb-8 flex flex-col md:flex-row gap-4 justify-center items-center">
-                        <input 
-                            type="text" 
-                            placeholder="Name" 
-                            value={name} 
-                            onChange={(e) => setName(e.target.value)} 
-                            className="px-4 py-2 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                        />
-                        <input 
-                            type="email" 
-                            placeholder="Email" 
-                            value={email} 
-                            onChange={(e) => setEmail(e.target.value)} 
-                            className="px-4 py-2 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                        />
-                        <button 
-                            type="submit" 
-                            className="px-4 py-2 bg-cyan-500 rounded font-semibold hover:bg-cyan-600 transition-colors"
-                            disabled={loading}
-                        >
-                            {loading ? 'Adding...' : 'Add User'}
-                        </button>
-                    </form>
+    // 🔐 SIGN UP
+    async function handleSignUp() {
+        const { error } = await supabase.auth.signUp({
+            email: authEmail,
+            password: authPassword,
+        });
 
-                    {/* Users Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {users.length > 0 ? users.map(user => (
-                            <div key={user.id} className="p-4 bg-gray-800 rounded-lg shadow-lg fade-in flex items-center gap-3">
-                                <i className="lucide-user text-cyan-400 w-6 h-6"></i>
-                                <div>
-                                    <h2 className="font-semibold text-xl">{user.name}</h2>
-                                    <p className="text-gray-300">{user.email}</p>
-                                </div>
-                            </div>
-                        )) : (
-                            <p className="text-center col-span-full">No users found yet.</p>
-                        )}
-                    </div>
+        if (error) return alert(error.message);
+        alert("Account created. Now log in.");
+    }
+
+    // 🔐 LOGIN
+    async function handleLogin() {
+        const { error } = await supabase.auth.signInWithPassword({
+            email: authEmail,
+            password: authPassword,
+        });
+
+        if (error) return alert(error.message);
+    }
+
+    // 🔐 LOGOUT
+    async function handleLogout() {
+        await supabase.auth.signOut();
+        setIsAuthenticated(false);
+    }
+
+    // 📥 Fetch users
+    async function fetchUsers() {
+        const { data, error } = await supabase.from('users').select('*');
+        if (error) console.error(error);
+        else setUsers(data);
+    }
+
+    // ➕ Add user
+    async function addUser(e) {
+        e.preventDefault();
+        if (!name || !email) return alert("Enter both name and email!");
+
+        setLoading(true);
+
+        const { data, error } = await supabase
+            .from('users')
+            .insert([{ name, email }]);
+
+        if (error) console.error(error);
+        else setUsers([...users, ...data]);
+
+        setName('');
+        setEmail('');
+        setLoading(false);
+    }
+
+    // 🔐 If NOT logged in → show Auth screen
+    if (!isAuthenticated) {
+        return (
+            <div className="p-6 max-w-md mx-auto text-center">
+                <h1 className="text-4xl font-bold mb-6">RARE BREEDS</h1>
+
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={authEmail}
+                    onChange={(e) => setAuthEmail(e.target.value)}
+                    className="mb-3 px-4 py-2 w-full rounded bg-gray-800 text-white"
+                />
+
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={authPassword}
+                    onChange={(e) => setAuthPassword(e.target.value)}
+                    className="mb-4 px-4 py-2 w-full rounded bg-gray-800 text-white"
+                />
+
+                <div className="flex gap-3 justify-center">
+                    <button
+                        onClick={handleLogin}
+                        className="px-4 py-2 bg-cyan-500 rounded"
+                    >
+                        Login
+                    </button>
+
+                    <button
+                        onClick={handleSignUp}
+                        className="px-4 py-2 bg-gray-700 rounded"
+                    >
+                        Sign Up
+                    </button>
                 </div>
-            );
-        }
+            </div>
+        );
+    }
 
-        ReactDOM.render(<App />, document.getElementById('root'));
-    </script>
+    // 🔓 If logged in → show main app
+    return (
+        <div className="p-6 max-w-4xl mx-auto">
+            <div className="flex justify-between items-center mb-4">
+                <h1 className="text-5xl font-bold animate-bounce">RARE BREEDS</h1>
+                <button
+                    onClick={handleLogout}
+                    className="px-3 py-1 bg-red-600 rounded"
+                >
+                    Logout
+                </button>
+            </div>
+
+            <p className="text-center mb-6 text-gray-300">
+                The Enlightened Collective
+            </p>
+
+            <form onSubmit={addUser}
+                className="mb-8 flex flex-col md:flex-row gap-4 justify-center items-center"
+            >
+                <input
+                    type="text"
+                    placeholder="Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="px-4 py-2 rounded bg-gray-800 text-white"
+                />
+
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="px-4 py-2 rounded bg-gray-800 text-white"
+                />
+
+                <button
+                    type="submit"
+                    className="px-4 py-2 bg-cyan-500 rounded"
+                    disabled={loading}
+                >
+                    {loading ? 'Adding...' : 'Add User'}
+                </button>
+            </form>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {users.length > 0 ? users.map(user => (
+                    <div key={user.id}
+                        className="p-4 bg-gray-800 rounded-lg shadow-lg flex items-center gap-3"
+                    >
+                        <div>
+                            <h2 className="font-semibold text-xl">
+                                {user.name}
+                            </h2>
+                            <p className="text-gray-300">
+                                {user.email}
+                            </p>
+                        </div>
+                    </div>
+                )) : (
+                    <p className="text-center col-span-full">
+                        No users found yet.
+                    </p>
+                )}
+            </div>
+        </div>
+    );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+</script>
 
     <!-- Tailwind configuration -->
     <script>
