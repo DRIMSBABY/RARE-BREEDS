@@ -1874,32 +1874,69 @@ ReactDOM.render(<App />, document.getElementById('root'));
             const [manifestos, setManifestos] = useState(INITIAL_MANIFESTOS);
             const [essence, setEssence] = useState(12450);
  
-            useEffect(() => {
-                lucide.createIcons();
-            }, [activeTab, manifestos, isAuthenticated]);
+         React.useEffect(() => {
+    if (window.lucide) {
+        window.lucide.createIcons();
+    }
+}, [activeTab]);
  
             return (
-                <div className="min-h-screen text-gray-100 font-sans selection:bg-aurum-400 selection:text-void-900">
-                    <Navbar activeTab={activeTab} setActiveTab={setActiveTab} essence={essence} isAuthenticated={isAuthenticated} />
-                    
-                    <main>
-                        {activeTab === 'codex' && <Codex setActiveTab={setActiveTab} />}
-                        {activeTab === 'enter' && <EnterConclave setIsAuthenticated={setIsAuthenticated} setUserCircle={setUserCircle} setActiveTab={setActiveTab} />}
-                        {activeTab === 'offering' && <SacredOffering />}
-                        {activeTab === 'metamorphosis' && <Metamorphosis />}
-                        {activeTab === 'seminar' && <SeminarPage setActiveTab={setActiveTab} />}
-                        {isAuthenticated && (
-                            <>
-                                {activeTab === 'atrium' && <Atrium manifestos={manifestos} setManifestos={setManifestos} />}
-                                {activeTab === 'forge' && <Forge />}
-                                {activeTab === 'resonance' && <Resonance isArchon={true} />}
-                                {activeTab === 'artifacts' && <Artifacts />}
-                                {activeTab === 'sanctuaries' && <Sanctuaries userCircle={userCircle} />}
-                                {activeTab === 'essence' && <Essence />}
-                            </>
-                        )}
-                    </main>
-                </div>
+               const publicPages = {
+    codex: <Codex setActiveTab={setActiveTab} />,
+    enter: (
+        <EnterConclave
+            setIsAuthenticated={setIsAuthenticated}
+            setUserCircle={setUserCircle}
+            setActiveTab={setActiveTab}
+        />
+    ),
+    offering: <SacredOffering />,
+    metamorphosis: <Metamorphosis />,
+    seminar: <SeminarPage setActiveTab={setActiveTab} />
+};
+
+const privatePages = {
+    atrium: (
+        <Atrium
+            manifestos={manifestos}
+            setManifestos={setManifestos}
+        />
+    ),
+    forge: <Forge />,
+    resonance: <Resonance isArchon={true} />,
+    artifacts: <Artifacts />,
+    sanctuaries: <Sanctuaries userCircle={userCircle} />,
+    essence: <Essence />
+};
+
+return (
+    <div className="min-h-screen text-gray-100 font-sans selection:bg-aurum-400 selection:text-void-900">
+        <Navbar
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            essence={essence}
+            isAuthenticated={isAuthenticated}
+        />
+
+        <main>
+            {/* Public Pages */}
+            {publicPages[activeTab]}
+
+            {/* Private Pages */}
+            {isAuthenticated
+                ? privatePages[activeTab]
+                : activeTab in privatePages
+                    ? (
+                        <EnterConclave
+                            setIsAuthenticated={setIsAuthenticated}
+                            setUserCircle={setUserCircle}
+                            setActiveTab={setActiveTab}
+                        />
+                    )
+                    : null}
+        </main>
+    </div>
+);
             );
         };
  
